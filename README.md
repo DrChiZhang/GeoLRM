@@ -49,6 +49,7 @@ Clone this repo and install the dependencies:
     conda install nvidia/label/cuda-12.1.0::cuda-toolkit 
     # https://anaconda.org/nvidia/cuda-toolkit
     export CUDA_HOME=$CONDA_PREFIX
+    export LD_LIBRARY_PATH=/home/chi/MyPrefix/miniconda3/pkgs/cuda-cudart-11.8.89-0/lib:$LD_LIBRARY_PATH
     conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia
 
     pip install flash-attn --no-build-isolation
@@ -106,11 +107,12 @@ Inference with sv3d for multi-view image generation.
 ```bash
 python run_geolrm_sv3d.py configs/geolrm-sv3d.yaml examples --output_path outputs
 ```
+
 Inference with zero123 for multi-view image generation (low GPU memory requirement, Nvidia 3090 works.). 
 The checkpoint can be downloaded from here: https://huggingface.co/TencentARC/InstantMesh/blob/main/diffusion_pytorch_model.bin
 
 ```bash
-python run_geolrm_zero.py configs/geolrm-zero123.yaml examples --output_path outputs
+python run_geolrm_zero123.py configs/geolrm-zero123.yaml examples --output_path outputs
 ```
 
 Tips for better results:
