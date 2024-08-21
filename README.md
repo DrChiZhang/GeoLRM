@@ -45,9 +45,22 @@ Clone this repo and install the dependencies:
     ```bash
     conda create -n geolrm python=3.10
     conda activate geolrm
+
+    conda install nvidia/label/cuda-12.1.0::cuda-toolkit 
+    # https://anaconda.org/nvidia/cuda-toolkit
+    export CUDA_HOME=$CONDA_PREFIX
     conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia
+
     pip install flash-attn --no-build-isolation
     pip install -r requirements.txt
+
+    #dependencies for sgm 
+    pip install kornia==0.6.9
+    pip install xformers==0.0.23.post1
+    #https://github.com/facebookresearch/xformers/releases
+    pip install open-clip-torch
+    pip install huggingface-hub==0.23.0
+    # https://github.com/run-llama/llama_index/discussions/14605
     ```
 
 2. Follow the instructions in [generative-models](https://github.com/Stability-AI/generative-models) to install the `sgm` package. (For SV3D inference.)
@@ -88,9 +101,16 @@ python app.py
 Then open the browser and visit `http://127.0.0.1:42339/`.
 
 ### Inference
+Inference with sv3d for multi-view image generation. 
 
 ```bash
-python run_georm_sv3d.py configs/geolrm.yaml examples --output_path outputs
+python run_geolrm_sv3d.py configs/geolrm-sv3d.yaml examples --output_path outputs
+```
+Inference with zero123 for multi-view image generation (low GPU memory requirement, Nvidia 3090 works.). 
+The checkpoint can be downloaded from here: https://huggingface.co/TencentARC/InstantMesh/blob/main/diffusion_pytorch_model.bin
+
+```bash
+python run_geolrm_zero.py configs/geolrm-zero123.yaml examples --output_path outputs
 ```
 
 Tips for better results:
